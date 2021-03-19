@@ -29,11 +29,6 @@ var books = [
     { id: 5, name: 'Khi nào thì nên chặt 2', authorId: 2 },
 ];
 
-type BatchAuthor = (authorIds: string[]) => Promise<Book[]>;
-const batchAuthor: BatchAuthor = async authorIds => {
-    const
-};
-
 export const resolvers = {
     Query: {
         book: (obj, args, context, info) => {
@@ -44,17 +39,17 @@ export const resolvers = {
             return books;
         },
     },
-    // Book: {
-    //     author: parent => {
-    //         console.log(1);
-    //         return authors.find(({ id }) => parent.authorId === id);
-    //     }
-    // },
     Book: {
-        author: ({ authorId }, args, context, info) => {
-            const authorDataLoader = AuthorDataLoader.getInstance(context);
-
-            return authorDataLoader.load(authorId);
+        author: parent => {
+            console.log(1);
+            return authors.find(({ id }) => parent.authorId === id);
         }
     },
+    // Book: {
+    //     author: ({ authorId }, args, context, info) => {
+    //         const authorDataLoader = AuthorDataLoader.getInstance(context);
+    //
+    //         return authorDataLoader.load(authorId);
+    //     }
+    // },
 };
